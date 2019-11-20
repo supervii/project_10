@@ -1,0 +1,15 @@
+{% extends './base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ movie.title }}{% endblock title %}
+
+{% block content %}
+  <div class="card mx-auto" style="width: 36rem;">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{ movie.title }}</h5>
+    <p class="card-text">누적관객수: {{ movie.audience }}</p>
+    <p class="card-text">{{ movie.description }}</p>
+  </div>
+  <img class="card-img-bottom" src="{{ movie.poster_url }}/100px180/" alt="{{ movie.title }}">
+</div>
+{% endblock  %}
