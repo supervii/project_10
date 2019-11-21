@@ -1,41 +1,42 @@
 {% extends 'movies/base.html' %}
+
+{% block title %}{{ persons.username }}'s Profile{% endblock title %}
+
 {% block content %}
 <h1 class="text-center">{{ persons.username }}'s Profile</h1>
+{% with  followings=person.followings.all followers=person.followers.all  %}
+<p class="text-center">팔로잉 : {{ followings|length }} | 팔로워 : {{ followers|length }}</p>
+{% endwith %}
 <hr>
-<h3 class="text-center">{{ persons.username }}이 작성한 글</h3>
-<div class="row">
-  {% with movies=persons.movie_set.all %}
+
+<h3 class="text-center">{{ persons.username }}이 좋아하는 영화</h3>
+{% with movies=persons.like_movies.all %}
+<div class="col-4 my-2">
   {% for movie in movies %}
-  <div class="col-4 my-2">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title"> {{ movie.content }} 가 좋아하는 영화 </h5>
-        <p class="card-text">{{ movie.like_user.count }}명이 좋아하는 글 </p>
-        <p class="card-text">{{ movie.comment_set.all|length }}개의 댓글</p>
-      </div>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"> {{ movie.title }} </h5>
+      <p class="card-text">{{ movie.review_set.all|length }}개의 리뷰</p>
     </div>
-
-    {% endfor %}
-    {% endwith %}
-
-    {% with  followings=person.followings.all followers=person.followers.all  %}
-    <p class="lead">
-      팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}
-    </p>
-    {% endwith %}
   </div>
+
+  {% endfor %}
+  {% endwith %}
+
+</div>
 </div>
 <hr>
-<h3 class="text-center">{{ persons.username }}이 작성한 댓글</h3>
+<h3 class="text-center">{{ persons.username }}이 작성한 리뷰</h3>
 <div class="row">
-  {% with persons.comment_set.all as comments  %}
-  {% for comment in comments %}
+  {% with persons.review_set.all as reviews  %}
+  {% for review in reviews %}
   <div class="card">
     <div class="card-body">
       <div class="col-12 my-2">
         <blockquote class="blockquote mb-0">
-          <p>{{ comment.content  }}</p>
-          <footer class="blockquote-footer">{{ comment.created_at|date:"SHORT_DATE_FORMAT" }} </footer>
+          <p>{{ review.content }} <small>(영화: {{ review.movie.title }})</small></p>
+          <p>평점: {{ review.score }}</p>
+
         </blockquote>
       </div>
     </div>
