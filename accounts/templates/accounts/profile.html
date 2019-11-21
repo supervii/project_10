@@ -2,7 +2,7 @@
 {% block content %}
 <h1 class="text-center">{{ persons.username }}'s Profile</h1>
 {% with  followings=person.followings.all followers=person.followers.all  %}
-<p class="text-center">팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}</p>
+<p class="text-center">팔로잉 : {{ followings|length }} | 팔로워 : {{ followers|length }}</p>
 {% endwith %}
 <hr>
 
