@@ -9,7 +9,7 @@
 {% endwith %}
 <hr>
 
-<h3 class="text-center">{{ persons.username }}이 좋아하는 영화</h3>
+<h3 class="text-center">{{ persons.username }} 이/가 좋아하는 영화</h3>
 {% with movies=persons.like_movies.all %}
 <div class="col-4 my-2">
   {% for movie in movies %}
@@ -19,29 +19,37 @@
       <p class="card-text">{{ movie.review_set.all|length }}개의 리뷰</p>
     </div>
   </div>
-
   {% endfor %}
+
   {% endwith %}
 
 </div>
 </div>
 <hr>
-<h3 class="text-center">{{ persons.username }}이 작성한 리뷰</h3>
-<div class="row">
-  {% with persons.review_set.all as reviews  %}
-  {% for review in reviews %}
-  <div class="card">
-    <div class="card-body">
-      <div class="col-12 my-2">
-        <blockquote class="blockquote mb-0">
-          <p>{{ review.content }} <small>(영화: {{ review.movie.title }})</small></p>
-          <p>평점: {{ review.score }}</p>
-
-        </blockquote>
-      </div>
-    </div>
+  <h3 class="text-center mt-5 mb-3">{{ persons.username }} 이/가 작성한 리뷰</h3>
+  <div class="row">
+    {% with reviews=persons.review_set.all %}
+      {% for review in reviews %}
+        <div class="col-4 my-2">
+          <div class="card mb-3">
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>영화: {{ review.movie.title }}</p>
+                <p>평점: {{ review.score }}</p>
+                <p>내용: {{ review.content }}</p>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-4 my-2">
+          <div class="card mb-3">      
+            <div class="card-body">
+              <p class="card-text"><b>{{ persons.username }} 이/가 작성한 리뷰가 없습니다.</b></p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endwith %}
   </div>
-  {% endfor %}
-  {% endwith %}
-</div>
 {% endblock  %}
