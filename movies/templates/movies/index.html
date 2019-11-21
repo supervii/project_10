@@ -1,0 +1,15 @@
+{% extends './base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}MOVIES{% endblock title %}
+
+{% block content %}
+  <h1 class="text-center">MOVIES</h1>
+  <div class="container">
+    <div class="row">
+      {% for movie in movies %}
+        {% include 'movies/_movie.html' %}
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+
+{% load bootstrap4 %}
+<div class="col-3 my-3">
+  <a href="{% url 'movies:detail' movie.pk %}">
+    <img src="{{ movie.poster_url }}" class="img-fluid" alt="{{ movie.title }}">
+  </a>
+</div>
