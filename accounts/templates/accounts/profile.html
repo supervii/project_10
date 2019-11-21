@@ -4,26 +4,32 @@
 <hr>
 <h3 class="text-center">{{ persons.username }}이 작성한 글</h3>
 <div class="row">
-{% with articles=persons.article_set.all %}
-  {% for article in articles %}
+  {% with movies=persons.movie_set.all %}
+  {% for movie in movies %}
   <div class="col-4 my-2">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title"> {{ article.content }} </h5>
-        <p class="card-text">{{ article.like_user.count }}명이 좋아하는 글 </p>
-        <p class="card-text">{{ article.comment_set.all|length }}개의 댓글</p>
-        <a href="{% url 'movies:detail' article.pk %}" class="btn btn-primary">게시글 보기</a>
+        <h5 class="card-title"> {{ movie.content }} 가 좋아하는 영화 </h5>
+        <p class="card-text">{{ movie.like_user.count }}명이 좋아하는 글 </p>
+        <p class="card-text">{{ movie.comment_set.all|length }}개의 댓글</p>
       </div>
     </div>
+
+    {% endfor %}
+    {% endwith %}
+
+    {% with  followings=person.followings.all followers=person.followers.all  %}
+    <p class="lead">
+      팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}
+    </p>
+    {% endwith %}
   </div>
-  {% endfor %}
-  {% endwith %}
 </div>
 <hr>
 <h3 class="text-center">{{ persons.username }}이 작성한 댓글</h3>
 <div class="row">
-{% with persons.comment_set.all as comments  %}
-{% for comment in comments %}
+  {% with persons.comment_set.all as comments  %}
+  {% for comment in comments %}
   <div class="card">
     <div class="card-body">
       <div class="col-12 my-2">
