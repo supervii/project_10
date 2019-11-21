@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
 from .models import Movie
+from .forms import ReviewForm
 # Create your views here.
 def index(request):
     movies = Movie.objects.all()
@@ -11,9 +12,11 @@ def index(request):
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     reviews = movie.review_set.all()
+    review_form = ReviewForm()
     context = {
         'movie': movie,
         'reviews': reviews,
+        'review_form': review_form,
     }
     return render(request, 'movies/detail.html', context)
 
