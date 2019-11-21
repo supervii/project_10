@@ -1,0 +1,13 @@
+{% extends 'movies/base.html' %}
+{% load bootstrap4 %}
+{% load socialaccount %}
+
+{% block content %}
+<h1>Log in </h1>
+<form action="" method="POST">
+{% csrf_token %}
+{% bootstrap_form form layout="horizontal"%}
+  {% buttons submit="로그인" reset="Cancel" %}{% endbuttons %}
+</form>
+<a class="btn btn-warning" href="{% provider_login_url "kakao" %}">KakaoTalk</a>
+{% endblock  %}
