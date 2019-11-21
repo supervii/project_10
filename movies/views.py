@@ -30,6 +30,7 @@ def review_create(request, movie_pk):
         if form.is_valid():
             review = form.save(commit=False)
             review.movie_id = movie_pk
+            review.user = request.user
             review.save()
     return redirect('movies:detail', movie_pk)
 
